@@ -54,6 +54,8 @@ It allows users to upload documents, extract and process their content, and ask 
 
 2. Start the Maven Project
 
+3. Application will start at: `http://localhost:8080`
+   
 ---
 
 ## 📡 API Endpoints
@@ -62,17 +64,17 @@ It allows users to upload documents, extract and process their content, and ask 
 
 | Method | Endpoint | Description |
 |------|---------|-------------|
-| POST | `/documents` | Upload a document (PDF, DOCX, TXT, etc.) |
-| GET | `/documents` | Get all documents (id and file name) |
-| GET | `/documents/{id}` | Get document by ID |
-| GET | `/documents/{id}/chunks` | Get text chunks of a document |
+| POST | `/document/upload` | Upload a document (PDF, DOCX, TXT, etc.) |
+| GET | `/document` | Get all documents (id and file name) |
+| GET | `/document/{id}` | Get document by ID |
+| GET | `/document/{id}/chunks` | Get text chunks of a document |
 | DELETE | `/documents/{id}` | Delete a document and its chunks |
 
 # Question Answering API
 
 | Method | Endpoint | Description |
 |------|---------|-------------|
-| POST | `/documents/{id}/questions` | Ask a question about a document |
+| POST | `/questions/ask` | Ask a question about a document |
 
 ---
 
