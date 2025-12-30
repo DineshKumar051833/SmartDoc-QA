@@ -53,3 +53,29 @@ It allows users to upload documents, extract and process their content, and ask 
    ollama serve
 
 2. Start the Maven Project
+
+---
+
+## 📡 API Endpoints
+
+# Document APIs
+
+Method	Endpoint	               Description
+POST	   /document/upload	      Upload a PDF document
+GET	   /document	            Get all documents (id + file name)
+GET	   /document/{id}	         Get document by ID
+GET	   /document/{id}/chunks	Get text chunks of a document
+DELETE	/document/{id}	         Delete document and its chunks
+
+# Question Answering API
+
+Method	 Endpoint	      Description
+POST	   /questions/ask	   Ask a question about a document
+
+---
+
+## 📌 Example Request (Ask Question)
+{
+  "question": "What is this document about?",
+  "documentId": 1
+}
