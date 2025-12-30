@@ -4,7 +4,7 @@ import org.example.java.smartdoc_qa.Entity.Chunk;
 import org.example.java.smartdoc_qa.Entity.Document;
 import org.example.java.smartdoc_qa.Entity.DocumentResponse;
 import org.example.java.smartdoc_qa.Repo.DocumentRepo;
-import org.example.java.smartdoc_qa.Utility.PDFParserUtil;
+import org.example.java.smartdoc_qa.Utility.DocumentParserUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,13 +17,21 @@ import java.util.List;
 public class DocumentService {
 
     private final DocumentRepo documentRepo;
+    private static final long MAX_FILE_SIZE = 20 * 1024 * 1024; // 20 MB
 
     public DocumentService(DocumentRepo documentRepo) {
         this.documentRepo = documentRepo;
     }
 
     public Document saveDocument(MultipartFile file) throws Exception {
-        String extractedText = PDFParserUtil.extractText(file.getInputStream());
+        if (file.getSize() > MAX_FILE_SIZE)
+            throw new RuntimeException("File size exceeds 20MB limit");
+
+        String extractedText = DocumentParserUtil.extractText(file);
+
+        if (extractedText == null || extractedText.trim().isEmpty())
+            throw new RuntimeException("Unable to extract text from the uploaded file");
+
         List<Chunk> chunkList = splitIntoChunks(extractedText,500);
         Document document = new Document();
         document.setFileName(file.getOriginalFilename());
